@@ -15,6 +15,7 @@
         "sourceMap": true,
         "lib": ["dom", "es2015", "es5"],
         "outDir":"bin",
+        "ignoreDeprecations": "5.0",
     },
     "include": [
         "src/index.ts",

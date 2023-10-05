@@ -122,7 +122,7 @@ export class SnapDB<K> {
 
         if (this._worker) { // multi threaded mode
 
-            this._worker.on("message", (msg) => { // got message from worker
+            this._worker.on("message", (msg: any) => { // got message from worker
                 switch (msg.type) {
                     case "snap-ready":
                         this._isReady = true;
@@ -457,7 +457,7 @@ export class SnapDB<K> {
      */
     public batch(ops?: {type: "del"|"put", key: K, value?: string}[], callback?: (error: any) => void): any {
         if (ops) {
-            return new Promise((res, rej) => {
+            return new Promise<void>((res, rej) => {
                 const run = async () => {
                     try {
                         await this.startTx();
@@ -924,7 +924,7 @@ export class SnapDB<K> {
         }
 
         this._isClosed = true;
-        return new Promise((res, rej) => {
+        return new Promise<void>((res, rej) => {
 
             if (this._worker) {
                 const msgId = this._msgID((data) => {
@@ -964,7 +964,7 @@ export class SnapDB<K> {
      */
     public empty(callback?: (err: any) => void): Promise<any> {
 
-        return new Promise((res, rej) => {
+        return new Promise<void>((res, rej) => {
             if (!this._isReady) {
                 if (callback) callback(undefined);
                 res();

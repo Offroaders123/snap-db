@@ -226,7 +226,7 @@ export class SnapCompactor {
     }
 }
 
-process.on('message', (msg) => { // got message from master
+process.on('message', (msg: any) => { // got message from master
     switch (msg.type) {
         case "snap-compact":
             new SnapCompactor(msg.path, msg.keyType, msg.cache);

@@ -587,7 +587,7 @@ export class SnapDatabase {
 
     private _listenForCommands() {
 
-        process.on('message', (msg) => { // got message from master
+        process.on('message', (msg: any) => { // got message from master
             const key = msg.key;
             const msgId = msg.id;
             switch (msg.type) {
@@ -1064,7 +1064,7 @@ export class SnapDatabase {
 
 // this is child fork if process.send exists
 if (process.send !== undefined) {
-    process.on('message', (msg) => { // got message from master
+    process.on('message', (msg: any) => { // got message from master
         switch (msg.type) {
             case "snap-connect":
                 new SnapDatabase(msg.path, msg.keyType, msg.cache, msg.autoFlush, true);
