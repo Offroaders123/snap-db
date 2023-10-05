@@ -24,7 +24,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
     const db_any = new_any();
 
     describe(testName, () => {
-        it("Put Data", (done: MochaDone) => {
+        it("Put Data", (done: Mocha.Done) => {
             const size = 1000;
             Promise.all([db_str, db_int, db_flt, db_any].map((s, i) => {
 
@@ -82,7 +82,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         }).timeout(30000);
 
-        it("The count should be zero after puting then deleting", (done: MochaDone) => {
+        it("The count should be zero after puting then deleting", (done: Mocha.Done) => {
             const KEY = 'key'
             const VAL = 'val'
             
@@ -99,7 +99,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             })
         }).timeout(30000);
 
-        it("The count should be 1 after put data to the same key multiple times", (done: MochaDone) => {
+        it("The count should be 1 after put data to the same key multiple times", (done: Mocha.Done) => {
             const KEY = 'key'
             const VAL = 'val'
             
@@ -117,7 +117,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             })
         }).timeout(30000);
 
-        it("Get non-exist key", (done: MochaDone) => {
+        it("Get non-exist key", (done: Mocha.Done) => {
             db_str.get('non-exist-key').then((val) => {
                 try {
                     expect(val).to.equal(undefined, "get a non-exist key should return undefined");
@@ -129,7 +129,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
 
         });
 
-        it("Call close() for multiple times", (done: MochaDone) => {
+        it("Call close() for multiple times", (done: Mocha.Done) => {
             const db = new SnapDB<string>({ dir: "testDB-close", key: "string" })
             db.close()
                 .then(() => db.close())
@@ -138,7 +138,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
         });
 
 
-        it("Integer: Sorted Keys", (done: MochaDone) => {
+        it("Integer: Sorted Keys", (done: Mocha.Done) => {
             data["int"] = data["int"].sort((a, b) => a[0] > b[0] ? 1 : -1);
             let dataFromDB: any[] = [];
             db_int.getAll((key, value) => {
@@ -153,7 +153,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         });
 
-        it("Integer: Key Exists", (done: MochaDone) => {
+        it("Integer: Key Exists", (done: Mocha.Done) => {
             const randomKey = data["int"][Math.floor(Math.random() * data["int"].length)][0];
             db_int.exists(randomKey).then((exists) => {
                 try {
@@ -165,7 +165,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }).catch(done);
         });
 
-        it("Integer: Key Doesn't Exist", (done: MochaDone) => {
+        it("Integer: Key Doesn't Exist", (done: Mocha.Done) => {
             const impossibleKey = Date.now();
             db_int.exists(impossibleKey).then((exists) => {
                 try {
@@ -177,7 +177,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }).catch(done);
         });
 
-        it("Integer: Delete Key", (done: MochaDone) => {
+        it("Integer: Delete Key", (done: Mocha.Done) => {
             const thisValue = data["int"].splice(42, 1).pop() as [any, any];
 
             db_int.delete(thisValue[0]);
@@ -195,7 +195,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
 
         });
 
-        it("Integer: Offset Select", (done: MochaDone) => {
+        it("Integer: Offset Select", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_int.offset(100, 10, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -210,7 +210,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         });
 
-        it("Integer: Offset Select (Reverse)", (done: MochaDone) => {
+        it("Integer: Offset Select (Reverse)", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_int.offset(100, 10, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -225,7 +225,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }, true);
         });
 
-        it("Integer: Range Select", (done: MochaDone) => {
+        it("Integer: Range Select", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_int.range(20, 50, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -240,7 +240,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         });
 
-        it("Integer: Range Select (Reverse)", (done: MochaDone) => {
+        it("Integer: Range Select (Reverse)", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_int.range(20, 50, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -256,7 +256,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }, true);
         });
 
-        it("Integer: Loading From Log Works", (done: MochaDone) => {
+        it("Integer: Loading From Log Works", (done: Mocha.Done) => {
 
             db_int.close().then(() => {
 
@@ -278,7 +278,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
 
 
 
-        it("Float: Sorted Keys", (done: MochaDone) => {
+        it("Float: Sorted Keys", (done: Mocha.Done) => {
             data["flt"] = data["flt"].sort((a, b) => a[0] > b[0] ? 1 : -1);
             let dataFromDB: any[] = [];
             db_flt.getAll((key, value) => {
@@ -293,7 +293,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         });
 
-        it("Float: Key Exists", (done: MochaDone) => {
+        it("Float: Key Exists", (done: Mocha.Done) => {
             const randomKey = data["flt"][Math.floor(Math.random() * data["flt"].length)][0];
             db_flt.exists(randomKey).then((exists) => {
                 try {
@@ -305,7 +305,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }).catch(done);
         });
 
-        it("Float: Key Doesn't Exist", (done: MochaDone) => {
+        it("Float: Key Doesn't Exist", (done: Mocha.Done) => {
             const impossibleKey = Date.now();
             db_flt.exists(impossibleKey).then((exists) => {
                 try {
@@ -317,7 +317,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }).catch(done);
         });
 
-        it("Float: Delete Key", (done: MochaDone) => {
+        it("Float: Delete Key", (done: Mocha.Done) => {
             const thisValue = data["flt"].splice(42, 1).pop() as [any, any];
 
             db_flt.delete(thisValue[0]);
@@ -336,7 +336,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
 
         });
 
-        it("Float: Offset Select", (done: MochaDone) => {
+        it("Float: Offset Select", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_flt.offset(100, 10, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -350,7 +350,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         });
 
-        it("Float: Offset Select (Reverse)", (done: MochaDone) => {
+        it("Float: Offset Select (Reverse)", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_flt.offset(100, 10, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -366,7 +366,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }, true);
         });
 
-        it("Float: Range Select", (done: MochaDone) => {
+        it("Float: Range Select", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_flt.range(20.5, 50.5, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -381,7 +381,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         });
 
-        it("Float: Range Select (Reverse)", (done: MochaDone) => {
+        it("Float: Range Select (Reverse)", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_flt.range(20.5, 50.5, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -397,7 +397,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }, true);
         });
 
-        it("Float: Loading From Log Works", (done: MochaDone) => {
+        it("Float: Loading From Log Works", (done: Mocha.Done) => {
 
             db_flt.close().then(() => {
 
@@ -419,7 +419,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
 
 
 
-        it("String: Sorted Keys", (done: MochaDone) => {
+        it("String: Sorted Keys", (done: Mocha.Done) => {
             data["str"] = data["str"].sort((a, b) => a[0] > b[0] ? 1 : -1);
             let dataFromDB: any[] = [];
             db_str.getAll((key, value) => {
@@ -434,7 +434,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         });
 
-        it("String: Key Exists", (done: MochaDone) => {
+        it("String: Key Exists", (done: Mocha.Done) => {
             const randomKey = data["str"][Math.floor(Math.random() * data["str"].length)][0];
             db_str.exists(randomKey).then((exists) => {
                 try {
@@ -446,7 +446,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }).catch(done);
         });
 
-        it("String: Key Doesn't Exist", (done: MochaDone) => {
+        it("String: Key Doesn't Exist", (done: Mocha.Done) => {
             const impossibleKey = "There is no way this combination of letters and spaces will happen.";
             db_str.exists(impossibleKey).then((exists) => {
                 try {
@@ -458,7 +458,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }).catch(done);
         });
 
-        it("String: Delete Key", (done: MochaDone) => {
+        it("String: Delete Key", (done: Mocha.Done) => {
             const thisValue = data["str"].splice(42, 1).pop() as [any, any];
 
             db_str.delete(thisValue[0])
@@ -476,7 +476,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
 
         });
 
-        it("String: Offset Select", (done: MochaDone) => {
+        it("String: Offset Select", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_str.offset(100, 10, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -490,7 +490,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         });
 
-        it("String: Offset Select (Reverse)", (done: MochaDone) => {
+        it("String: Offset Select (Reverse)", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_str.offset(100, 10, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -505,7 +505,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }, true);
         });
 
-        it("String: Range Select", (done: MochaDone) => {
+        it("String: Range Select", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_str.range("a", "b", (key, value) => {
                 dataFromDB.push([key, value]);
@@ -519,7 +519,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         });
 
-        it("String: Range Select (Reverse)", (done: MochaDone) => {
+        it("String: Range Select (Reverse)", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_str.range("a", "b", (key, value) => {
                 dataFromDB.push([key, value]);
@@ -537,7 +537,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }, true);
         });
 
-        it("String: Loading From Log Works", (done: MochaDone) => {
+        it("String: Loading From Log Works", (done: Mocha.Done) => {
 
             db_str.close().then(() => {
 
@@ -559,7 +559,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
 
 
 
-        it("Any: Sorted Keys", (done: MochaDone) => {
+        it("Any: Sorted Keys", (done: Mocha.Done) => {
             data["any"] = data["any"].sort((a, b) => {
                 if (a[0] === b[0]) return 0;
                 if (typeof a[0] === typeof b[0]) return a[0] > b[0] ? 1 : -1;
@@ -579,7 +579,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
         });
 
 
-        it("Any: Key Exists", (done: MochaDone) => {
+        it("Any: Key Exists", (done: Mocha.Done) => {
             const randomKey = data["any"][Math.floor(Math.random() * data["any"].length)][0];
             db_any.exists(randomKey).then((exists) => {
                 try {
@@ -591,7 +591,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }).catch(done);
         });
 
-        it("Any: Key Doesn't Exist", (done: MochaDone) => {
+        it("Any: Key Doesn't Exist", (done: Mocha.Done) => {
             const impossibleKey = "There is no way this combination of letters and spaces will happen.";
             db_any.exists(impossibleKey).then((exists) => {
                 try {
@@ -603,7 +603,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }).catch(done);
         });
 
-        it("Any: Delete Key", (done: MochaDone) => {
+        it("Any: Delete Key", (done: Mocha.Done) => {
             const thisValue = data["any"].splice(42, 1).pop() as [any, any];
 
             db_any.delete(thisValue[0]).then(() => {
@@ -621,7 +621,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             })
         });
 
-        it("Any: Offset Select", (done: MochaDone) => {
+        it("Any: Offset Select", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_any.offset(100, 10, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -635,7 +635,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         });
 
-        it("Any: Offset Select (Reverse)", (done: MochaDone) => {
+        it("Any: Offset Select (Reverse)", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_any.offset(100, 10, (key, value) => {
                 dataFromDB.push([key, value]);
@@ -650,7 +650,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }, true);
         });
 
-        it("Any: Range Select", (done: MochaDone) => {
+        it("Any: Range Select", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_any.range("a", "b", (key, value) => {
                 dataFromDB.push([key, value]);
@@ -664,7 +664,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             });
         });
 
-        it("Any: Range Select (Reverse)", (done: MochaDone) => {
+        it("Any: Range Select (Reverse)", (done: Mocha.Done) => {
             let dataFromDB: any[] = [];
             db_any.range("a", "b", (key, value) => {
                 dataFromDB.push([key, value]);
@@ -682,7 +682,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
             }, true);
         });
 
-        it("Any: Loading From Log Works", (done: MochaDone) => {
+        it("Any: Loading From Log Works", (done: Mocha.Done) => {
 
             db_any.close().then(() => {
 
