@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
-import { SnapManifest, writeManifestUpdate, fileName, VERSION, throttle, SnapIndex, NULLBYTE, tableGenerator, rand, QueryArgs } from "./common";
-import { BloomFilter, MurmurHash3, IbloomFilterObj } from "./lib_bloom";
-import { createRBTree, RedBlackTree, RedBlackTreeIterator } from "./lib_rbtree";
+import { SnapManifest, writeManifestUpdate, fileName, VERSION, throttle, SnapIndex, NULLBYTE, tableGenerator, rand, QueryArgs } from "./common.js";
+import { BloomFilter, MurmurHash3, IbloomFilterObj } from "./lib_bloom.js";
+import { createRBTree, RedBlackTree, RedBlackTreeIterator } from "./lib_rbtree.js";
 
 const snapCompare = (a, b) => {
     if (a === b) return 0;

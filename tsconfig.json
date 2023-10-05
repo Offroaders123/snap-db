@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
-        "target": "ES5",
-        "module": "commonjs",
-        "moduleResolution": "node",
+        "target": "ESNext",
+        "module": "NodeNext",
         "stripInternal": true,
         "importHelpers": false,
         "strictNullChecks": true,
@@ -11,11 +10,9 @@
         "declarationDir": "bin",
         "noImplicitReturns": true,
         "noImplicitThis": true,
-        "noImplicitUseStrict": true,
         "sourceMap": true,
         "lib": ["dom", "es2015", "es5"],
         "outDir":"bin",
-        "ignoreDeprecations": "5.0",
     },
     "include": [
         "src/index.ts",

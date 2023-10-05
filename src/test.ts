@@ -1,6 +1,6 @@
 import { expect, assert } from "chai";
 import "mocha";
-import { SnapDB } from "./index";
+import { SnapDB } from "./index.js";
 
 function makeid() {
     var text = "";

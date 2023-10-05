@@ -1,10 +1,13 @@
 import * as path from "path";
 import { fork, ChildProcess } from "child_process";
-import { VERSION, fileName as fNameFN, rand, QueryArgs } from "./common";
-import { ReallySmallEvents } from "./lib_rse";
+import { VERSION, fileName as fNameFN, rand, QueryArgs } from "./common.js";
+import { ReallySmallEvents } from "./lib_rse.js";
 import * as fs from "fs";
-import { SnapDatabase } from "./database";
+import { SnapDatabase } from "./database.js";
 import * as stream from "stream";
+import * as url from "url";
+
+const __dirname = url.fileURLToPath(new URL("./", import.meta.url));
 
 const messageBuffer: {
     [messageId: string]: (values: string[]) => void;
