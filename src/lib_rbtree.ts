@@ -72,7 +72,7 @@ export class RedBlackTree {
 
     keys() {
         let result: any[] = []
-        this.forEach((k, v) => {
+        this.forEach((k) => {
             result.push(k)
         })
         return result
@@ -80,7 +80,7 @@ export class RedBlackTree {
 
     values() {
         let result: any[] = []
-        this.forEach((k, v) => {
+        this.forEach((_k, v) => {
             result.push(v)
         })
         return result
@@ -264,18 +264,15 @@ export class RedBlackTree {
         switch (arguments.length) {
             case 1:
                 return doVisitFull(visit, this.root)
-                break
 
             case 2:
                 return doVisitHalf(lo, this._compare, visit, this.root)
-                break
 
             case 3:
                 if (this._compare(lo, hi) >= 0) {
                     return
                 }
                 return doVisit(lo, hi, this._compare, visit, this.root)
-                break
         }
     }
 

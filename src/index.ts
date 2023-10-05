@@ -292,7 +292,7 @@ export class SnapDB<K> {
             if (callback) callback();
             return Promise.resolve();
         }
-        return new Promise((res, rej) => {
+        return new Promise((res) => {
             const readyCB = () => {
                 if (callback) callback();
                 this.off("ready", readyCB);
@@ -600,7 +600,7 @@ export class SnapDB<K> {
      * @memberof SnapDB
      */
     public getAllKeysStream(reverse?: boolean): stream.Readable {
-        return this._streamKeysAndValues({reverse: reverse, values: false}, "get-keys", "get-keys-end", (key, value) => key);
+        return this._streamKeysAndValues({reverse: reverse, values: false}, "get-keys", "get-keys-end", (key) => key);
     }
 
     /**
@@ -1204,7 +1204,7 @@ export class SnapDB<K> {
      * @memberof SnapDB
      */
     private _iterateKeysAndValues(args: QueryArgs<K>, progressEvent: string, doneEvent: string, keysOnly?: boolean): Promise<AsyncIterableIterator<[K, string]>> {
-        return this._doWhenReady((res, rej) => {
+        return this._doWhenReady((res) => {
             const that = this;
             const loop = async function* () {
                 if (that._worker) {

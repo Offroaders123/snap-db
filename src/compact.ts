@@ -28,6 +28,7 @@ export class SnapCompactor {
         })
     }
 
+    // @ts-expect-error - value is never read
     private _indexFileCache: {
         [fileNum: number]: { cache: SnapIndex, lastUsed: number }
     } = {};

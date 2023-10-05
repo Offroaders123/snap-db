@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { IbloomFilterObj, BloomFilter, MurmurHash3 } from "./lib_bloom.js";
+import { BloomFilter, MurmurHash3 } from "./lib_bloom.js";
 import { RedBlackTree } from "./lib_rbtree.js";
 import { Sha1 } from "./lib_sha1.js";
 

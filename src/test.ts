@@ -1,4 +1,4 @@
-import { expect, assert } from "chai";
+import { expect } from "chai";
 import "mocha";
 import { SnapDB } from "./index.js";
 
@@ -58,7 +58,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
                     }
                 }
                 // scramble for insert
-                data[dataKey] = data[dataKey].sort((a, b) => Math.random() > 0.5 ? 1 : -1);
+                data[dataKey] = data[dataKey].sort(() => Math.random() > 0.5 ? 1 : -1);
                 return Promise.all(data[dataKey].map(k => s.put(k[0], k[1])))
 
             })).then(() => {
@@ -356,7 +356,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
                 dataFromDB.push([key, value]);
             }, () => {
                 try {
-                    const len = db_flt.getCount();
+                    db_flt.getCount();
                     const genData = data["flt"].slice().reverse().slice(100, 110);
                     expect(dataFromDB).to.deep.equal(genData, "Float offset reverse select failed!");
                     done();
@@ -496,7 +496,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
                 dataFromDB.push([key, value]);
             }, () => {
                 try {
-                    const len = db_str.getCount();
+                    db_str.getCount();
                     expect(dataFromDB).to.deep.equal(data["str"].slice().reverse().slice(100, 110), "String offset reverse select failed!");
                     done();
                 } catch (e) {
@@ -641,7 +641,7 @@ export const runTests = (testName: string, new_str: () => SnapDB<any>, new_int: 
                 dataFromDB.push([key, value]);
             }, () => {
                 try {
-                    const len = db_any.getCount();
+                    db_any.getCount();
                     expect(dataFromDB).to.deep.equal(data["any"].slice().reverse().slice(100, 110), "Any offset reverse select failed!");
                     done();
                 } catch (e) {
